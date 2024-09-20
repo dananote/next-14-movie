@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { ClapperboardIcon, Search } from "lucide-react";
 
 export default function Header() {
