@@ -10,14 +10,13 @@ const getMovieData = async (id: string) => {
   }
 };
 
+//TODO 데이터 없을 경우 처리
 export default async function MoviePage({
   params: { id },
 }: {
   params: { id: string };
 }) {
   const movie = await getMovieData(id);
-  console.log("=====================================================");
-  console.log(movie);
 
   return (
     <div>
