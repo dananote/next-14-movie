@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { getMovies } from "../api/movie-api";
-import { IMovies } from "../types/movies-type";
+import { getMovies } from "./api/movie-api";
+import { IMovies } from "./types/movies-type";
+import Link from "next/link";
 
 const getMoviesData = async () => {
   try {
@@ -14,14 +14,16 @@ const getMoviesData = async () => {
 
 export default async function HomePage() {
   const movies: IMovies[] = await getMoviesData();
-  console.log(movies);
   return (
     <div>
-      <Button variant={"link"}>Button</Button>
       {movies && movies.length > 0 ? (
         <ul>
           {movies.map((movie: IMovies) => {
-            return <li key={movie.id}>{movie.title}</li>;
+            return (
+              <li key={movie.id}>
+                <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
+              </li>
+            );
           })}
         </ul>
       ) : (
