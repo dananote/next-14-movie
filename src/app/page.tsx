@@ -1,34 +1,16 @@
-import { getMovies } from "./api/movie-api";
-import { IMovies } from "./types/movies-type";
-import Link from "next/link";
+import MovieBanner from "@/components/home/movie-banner";
+import MovieList from "@/components/home/movie-list";
+import { Suspense } from "react";
 
-const getMoviesData = async () => {
-  try {
-    const res = await getMovies();
-    return res;
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-
-export default async function HomePage() {
-  const movies: IMovies[] = await getMoviesData();
+export default function HomePage() {
   return (
     <div>
-      {movies && movies.length > 0 ? (
-        <ul>
-          {movies.map((movie: IMovies) => {
-            return (
-              <li key={movie.id}>
-                <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
-              </li>
-            );
-          })}
-        </ul>
-      ) : (
-        <p>데이터가 없습니다.</p>
-      )}
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <MovieBanner />
+      </Suspense>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <MovieList />
+      </Suspense>
     </div>
   );
 }

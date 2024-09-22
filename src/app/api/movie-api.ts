@@ -11,3 +11,9 @@ export async function getMovie(id: string) {
   const res = await instance.get(`/${id}`);
   return res.data;
 }
+
+// movie video api
+export async function getMovieVideo(id: string) {
+  const res = await instance.get(`/${id}/videos`);
+  return res.data;
+}

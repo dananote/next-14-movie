@@ -1,19 +1,9 @@
 "use client";
 
-import { getMovie } from "@/app/api/movie-api";
 import { DialogContent, DialogDescription, DialogTitle } from "../ui/dialog";
 import { useEffect, useState } from "react";
 import { IMovie } from "@/app/types/movies-type";
-
-const getMovieData = async (id: string) => {
-  try {
-    const res = await getMovie(id);
-    return res;
-  } catch (error) {
-    console.log(error);
-    return {};
-  }
-};
+import { getMovieData } from "@/utils/getData";
 
 //TODO 로딩 처리 하긴 했는데.. 서버 에서 렌더링한게 아니어서 fetch가 안되네 이거 고민해 봐야할듯
 export default function MovieModal({ id }: { id: string }) {
