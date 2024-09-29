@@ -1,5 +1,6 @@
 import { IMovies } from "@/app/types/movies-type";
 import { getMoviesData } from "@/utils/getData";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function MovieList() {
@@ -12,7 +13,16 @@ export default async function MovieList() {
           {movies.map((movie) => {
             return (
               <li key={movie.id}>
-                <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
+                <Link href={`/movies/${movie.id}`}>
+                  {movie.title}
+                  <p>{movie.id}</p>
+                  <Image
+                    src={movie.backdrop_path}
+                    alt={movie.title}
+                    width={400}
+                    height={400}
+                  />
+                </Link>
               </li>
             );
           })}

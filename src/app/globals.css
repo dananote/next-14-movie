@@ -27,6 +27,13 @@ body {
 }
 
 @layer base {
+  @font-face {
+    font-family: "JosefinSans";
+    src: url("https://fonts.gstatic.com/s/josefinsans/v32/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_N_XbMZhLybpUVzEEQ.woff2")
+      format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
