@@ -6,11 +6,12 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IMovie } from "@/app/types/movies-type";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { MoveRight } from "lucide-react";
+import { Info } from "lucide-react";
+import { type CarouselApi } from "@/components/ui/carousel";
 
 // TODO 이미지 로드시 어떻게 처리 할건지
 // TODO 노이즈 이미지 추가하기 현재는 tailwind bg image 넣는 법을 모르겠음
@@ -22,35 +23,49 @@ export default function MovieBanner({
 }: {
   bannerMovies: IMovie[];
 }) {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  const classes = "w-2 h-2 rounded-full mx-1";
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
   // 3초 후 캐러셀 전환
   const plugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
 
   //TODO onMouseLeave에는 boolean으로 return 하는 값을 넣어줘야하는 ispalying을 넣어주면 동작하지 않음 play로 넣어줘야만 동작함
   return (
     <Carousel
+      setApi={setApi}
       className="mt-[-100px]"
       plugins={[plugin.current]}
       onMouseEnter={plugin.current.stop}
-      onMouseLeave={plugin.current.isPlaying}
+      onMouseLeave={plugin.current.play}
     >
       <CarouselContent>
         {bannerMovies.map((movie: IMovie) => (
           <CarouselItem key={movie.id}>
-            <div className="relative w-full h-80">
-              <div className="absolute top-[40%] left-[5%] translate-y-[-50% w-[40vw] z-50">
-                <h2 className="font-JosefinSans font-black text-5xl mb-6">
+            <div className="relative w-full h-90">
+              <div className="absolute top-[30%] left-[5%] translate-y-[-50% w-[40vw] z-50">
+                <h2 className="font-JosefinSans font-black text-6xl mb-4">
                   {movie.title}
                 </h2>
-                <h3 className="text-gray-500">{movie.overview}</h3>
-                <Button variant="link" className="mt-6 animate-fadein">
-                  <MoveRight
-                    size={40}
-                    strokeWidth={0.5}
-                    className=" text-white"
-                  />
+                <p className="text-gray-300">{movie.overview}</p>
+                <Button className="mt-8" variant="default">
+                  <Info size={20} strokeWidth={2} className="mr-2" />
+                  Detail info
                 </Button>
               </div>
-              <div className="absolute w-full h-80 bg-black opacity-50"></div>
+              <div className="absolute w-full h-90 bg-gradient-to-t from-gray-900 to-transparent"></div>
               <Image
                 src={movie.backdrop_path}
                 width={1920}
@@ -61,6 +76,19 @@ export default function MovieBanner({
           </CarouselItem>
         ))}
       </CarouselContent>
+
+      <div className="flex justify-center gap-3 translate-y-[-120px]">
+        {bannerMovies.map((_, index: number) => (
+          <div
+            className={
+              current === index
+                ? classes + " bg-gray-300"
+                : classes + " bg-slate-700"
+            }
+            key={index}
+          ></div>
+        ))}
+      </div>
     </Carousel>
   );
 }

@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       height: {
-        80: "80vh",
+        90: "90vh",
       },
       fontFamily: {
         JosefinSans: ["JosefinSans"],
@@ -19,26 +19,19 @@ const config: Config = {
         fadein: {
           "0%": {
             opacity: "0.5",
-            transform: "translateY(-10px)",
+            transform: "translateX(-20px)",
           },
           "100%": {
             opacity: "1",
-            transform: "translateY(0)",
-          },
-        },
-        fadeout: {
-          "0%": {
-            opacity: "1",
-          },
-          "100%": {
-            opacity: "0",
-            transform: "translateY(-10px)",
+            transform: "translateX(0)",
           },
         },
       },
       animation: {
-        fadein: "fadein 0.5s infinite",
-        fadeout: "fadeout 1s infinite",
+        fadein: "fadein 2s infinite",
+      },
+      aspectRatio: {
+        "2/3": "2 / 3",
       },
       colors: {
         background: "hsl(var(--background))",

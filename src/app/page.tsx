@@ -5,7 +5,7 @@ import { IMovie } from "@/app/types/movies-type";
 import { getMovieData } from "@/utils/getData";
 
 // type 세분화 해주기 banner에 필ㄹ요한 데이터만 넘기기
-const MOVIE_ID = ["519182", "957452", "1079091"];
+const MOVIE_ID = ["533535", "1139817", "1186947", "1079091"];
 export default async function HomePage() {
   const bannerMovies: IMovie[] = [];
   for (const id of MOVIE_ID) {

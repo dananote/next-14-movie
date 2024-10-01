@@ -1,30 +1,17 @@
 import { IMovies } from "@/app/types/movies-type";
 import { getMoviesData } from "@/utils/getData";
-import Image from "next/image";
-import Link from "next/link";
+import MovieCard from "../movie/movie-card";
 
 export default async function MovieList() {
   const movies: IMovies[] = await getMoviesData();
 
   return (
-    <div>
+    <div className="absolute p-12 mt-[-120px]">
+      <h2 className="font-JosefinSans text-white text-3xl mb-6">Best Movies</h2>
       {movies && movies.length > 0 ? (
-        <ul>
-          {movies.map((movie) => {
-            return (
-              <li key={movie.id}>
-                <Link href={`/movies/${movie.id}`}>
-                  {movie.title}
-                  <p>{movie.id}</p>
-                  <Image
-                    src={movie.backdrop_path}
-                    alt={movie.title}
-                    width={400}
-                    height={400}
-                  />
-                </Link>
-              </li>
-            );
+        <ul className="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8">
+          {movies.map((movie: IMovies) => {
+            return <MovieCard key={movie.id} movie={movie} />;
           })}
         </ul>
       ) : (
